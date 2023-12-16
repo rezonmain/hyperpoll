@@ -18,4 +18,18 @@ const createNewVote = ({
   };
 };
 
-export { createNewVote };
+const getRegistration = ({
+  pollId,
+  registration,
+}: {
+  pollId: string;
+  registration: string;
+}) => {
+  const db = getLocalDBInstance(pollId);
+  const stmt = db.prepare(
+    "SELECT registration FROM vote WHERE registration = $registration"
+  );
+  return stmt.get({ $registration: registration });
+};
+
+export { createNewVote, getRegistration };

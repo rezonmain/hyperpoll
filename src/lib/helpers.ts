@@ -1,3 +1,4 @@
+import { SocketAddress } from "bun";
 import { getLocalDBInstance } from "./db";
 
 const isEmpty = (val: unknown) => {
@@ -45,4 +46,7 @@ const insertRandomVotes = (id: string, amount: number) => {
   }
 };
 
-export { insertRandomVotes, isEmpty, bench };
+const getAddressFromIp = (ip: string | SocketAddress) =>
+  typeof ip === "string" ? ip : ip.address;
+
+export { insertRandomVotes, isEmpty, bench, getAddressFromIp };

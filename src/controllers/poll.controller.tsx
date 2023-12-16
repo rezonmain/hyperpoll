@@ -1,5 +1,6 @@
 import * as elements from "typed-html";
 import Elysia, { t } from "elysia";
+import { ip } from "elysia-ip";
 import { html } from "@elysiajs/html";
 import { ROUTE } from "@/constants/routes";
 import {
@@ -12,7 +13,7 @@ import { getAllPolls, getPollData } from "@/repositories/poll.repository";
 import { handleCreateNewPoll, handleDeletePoll } from "@/services/poll.service";
 import { handleCreateNewVote } from "@/services/vote.service";
 import { fillDynamicPath } from "@/lib/path";
-import { ip } from "elysia-ip";
+import { hasVoted } from "@/lib/fraud";
 
 export const pollController = new Elysia()
   .use(html())
@@ -21,7 +22,14 @@ export const pollController = new Elysia()
     const polls = getAllPolls();
     return html(<PollHomePage polls={polls} />);
   })
-  .get(ROUTE.POLL, ({ html, params: { pollId } }) => {
+  .get(ROUTE.POLL, ({ html, params: { pollId }, ip, set }) => {
+    if (!ip) {
+      throw new Error("BAD_REQUEST");
+    }
+    if (hasVoted({ pollId, ip })) {
+      set.redirect = fillDynamicPath(ROUTE.RESULT, { pollId });
+      return;
+    }
     const { options, pollTitle } = getPollData(pollId);
     return html(
       <PollPage options={options} pollId={pollId} pollTitle={pollTitle} />
