@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS poll (
   pollId TEXT NOT NULL,
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
   updatedAt DATETIME,
-  title TEXT NOT NULL
+  title TEXT NOT NULL,
   active INTEGER NOT NULL DEFAULT 1
 );
 PRAGMA user_version = 1;
