@@ -7,10 +7,10 @@ import { Button } from "@/components/Button";
 const PollHomePage = () => {
   return (
     <GlobalLayout>
-      <body class="flex h-[66vh] flex-col items-center justify-center bg-gray-300">
+      <body class="flex h-[100vh] flex-col items-center justify-evenly bg-gray-300">
         <section class={`${w98Container} flex flex-col`}>
           <div class="flex flex-row items-center justify-between bg-gradient-to-r from-blue-900 to-blue-500 p-1">
-            <span class="color-white">HyperPolls</span>
+            <span class="color-white font-bold tracking-wider">HyperPolls</span>
             <div
               class={`${w98ButtonSm} h-5 w-5 select-none text-center font-mono`}
             >
@@ -24,6 +24,17 @@ const PollHomePage = () => {
             </a>
           </div>
         </section>
+        <footer>
+          <div class="flex flex-row items-center justify-center gap-2">
+            <small class="font-mono text-sm">made with{"<3"}by</small>
+            <a target="_blank" rel="noreferrer" href="https://rezonmain.dev">
+              <small class="font-mono text-sm">rezonmain</small>
+            </a>
+            <small class="font-mono text-sm">
+              &#169; {new Date().getFullYear()}
+            </small>
+          </div>
+        </footer>
       </body>
     </GlobalLayout>
   );
