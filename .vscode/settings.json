@@ -3,5 +3,8 @@
     "Elysia",
     "elysiajs",
     "htmx"
-  ]
+  ], 
+  "tailwindCSS.includeLanguages": { 
+    "plaintext": "javascript" 
+  }
 }

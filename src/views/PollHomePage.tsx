@@ -1,37 +1,26 @@
 import * as elements from "typed-html";
 import { GlobalLayout } from "@/layouts/GlobalLayout";
-import { Poll } from "@/models/Poll";
 import { ROUTE } from "@/constants/routes";
-import { fillDynamicPath } from "@/lib/path";
+import { w98Button, w98ButtonSm, w98Container } from "@/constants/styles";
 
-type PollHomePageProps = {
-  polls: Poll[];
-};
-
-const PollHomePage = ({ polls }: PollHomePageProps) => {
-  const hasPolls = polls.length > 0;
+const PollHomePage = () => {
   return (
     <GlobalLayout>
-      <body>
-        <h1>Welcome to HyperPolls</h1>
-        {hasPolls ? <p>Available polls</p> : <p>No polls available</p>}
-        <ul>
-          {polls.map((poll) => (
-            <li>
-              <a href={fillDynamicPath(ROUTE.POLL, { pollId: poll.pollId })}>
-                {poll.title}
-              </a>
-              <button
-                hx-delete={fillDynamicPath(ROUTE.POLL, { pollId: poll.pollId })}
-                hx-swap="outerHTML"
-                hx-target="closest li"
-              >
-                Delete
+      <body class="flex h-[66vh] flex-col items-center justify-center bg-gray-300">
+        <section class={`${w98Container} flex flex-col`}>
+          <div class="flex flex-row items-center justify-between bg-gradient-to-r from-blue-900 to-blue-500 p-1">
+            <span class="color-white">HyperPoll</span>
+            <button class={`${w98ButtonSm} font-mono`}>x</button>
+          </div>
+          <div class="flex flex-col items-center gap-4 p-10">
+            <h1 class="text-5xl">Welcome to HyperPolls</h1>
+            <a href={ROUTE.POLL_CREATE}>
+              <button class={`${w98Button} px-3 py-1 font-serif text-lg`}>
+                Create new poll
               </button>
-            </li>
-          ))}
-        </ul>
-        <a href={ROUTE.POLL_CREATE}>Create a new poll</a>
+            </a>
+          </div>
+        </section>
       </body>
     </GlobalLayout>
   );

@@ -1,6 +1,6 @@
 import { generateVoteRegistration } from "@/lib/fraud";
 import { createNewVote } from "@/repositories/vote.repository";
-import { SocketAddress } from "bun";
+import type { SocketAddress } from "bun";
 
 const handleCreateNewVote = ({
   pollId,

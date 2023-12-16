@@ -1,4 +1,4 @@
-import { SocketAddress } from "bun";
+import type { SocketAddress } from "bun";
 import sanitize from "sanitize-html";
 import { getAddressFromIp } from "./helpers";
 import { getRegistration } from "@/repositories/vote.repository";

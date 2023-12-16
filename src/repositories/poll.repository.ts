@@ -5,9 +5,9 @@ import {
   getDbInstance,
   getLocalDBInstance,
 } from "@/lib/db";
-import { Option } from "@/models/Option";
-import { Poll } from "@/models/Poll";
-import { Vote } from "@/models/Vote";
+import type { Option } from "@/models/Option";
+import type { Poll } from "@/models/Poll";
+import type { Vote } from "@/models/Vote";
 
 const getAllPolls = () => {
   const db = getDbInstance(GLOBAL_DB_PATH);

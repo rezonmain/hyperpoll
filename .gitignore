@@ -42,3 +42,5 @@ package-lock.json
 **/*.bun
 
 data/*
+# Ignore it as is just used for intellisense
+tailwind.config.js

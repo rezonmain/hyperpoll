@@ -1,5 +1,5 @@
 import * as elements from "typed-html";
-import { Option } from "@/models/Option";
+import type { Option } from "@/models/Option";
 import { GlobalLayout } from "@/layouts/GlobalLayout";
 import { ROUTE } from "@/constants/routes";
 import { fillDynamicPath } from "@/lib/path";

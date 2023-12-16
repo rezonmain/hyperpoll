@@ -1,4 +1,4 @@
-import { SocketAddress } from "bun";
+import type { SocketAddress } from "bun";
 import { getLocalDBInstance } from "./db";
 
 const isEmpty = (val: unknown) => {

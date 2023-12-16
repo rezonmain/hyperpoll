@@ -1,4 +1,4 @@
-import * as elements from "typed-html";
+import type * as elements from "typed-html";
 
 export const GlobalLayout = ({ children }: elements.Children) => `
 <!DOCTYPE html>
