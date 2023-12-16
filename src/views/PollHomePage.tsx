@@ -1,7 +1,8 @@
 import * as elements from "typed-html";
 import { GlobalLayout } from "@/layouts/GlobalLayout";
 import { ROUTE } from "@/constants/routes";
-import { w98Button, w98ButtonSm, w98Container } from "@/constants/styles";
+import { w98ButtonSm, w98Container } from "@/constants/styles";
+import { Button } from "@/components/Button";
 
 const PollHomePage = () => {
   return (
@@ -9,15 +10,17 @@ const PollHomePage = () => {
       <body class="flex h-[66vh] flex-col items-center justify-center bg-gray-300">
         <section class={`${w98Container} flex flex-col`}>
           <div class="flex flex-row items-center justify-between bg-gradient-to-r from-blue-900 to-blue-500 p-1">
-            <span class="color-white">HyperPoll</span>
-            <button class={`${w98ButtonSm} font-mono`}>x</button>
+            <span class="color-white">HyperPolls</span>
+            <div
+              class={`${w98ButtonSm} h-5 w-5 select-none text-center font-mono`}
+            >
+              x
+            </div>
           </div>
           <div class="flex flex-col items-center gap-4 p-10">
-            <h1 class="text-5xl">Welcome to HyperPolls</h1>
+            <h1 class="text-5xl">Welcome to HyperPolls ⚡️</h1>
             <a href={ROUTE.POLL_CREATE}>
-              <button class={`${w98Button} px-3 py-1 font-serif text-lg`}>
-                Create new poll
-              </button>
+              <Button>Create new poll</Button>
             </a>
           </div>
         </section>

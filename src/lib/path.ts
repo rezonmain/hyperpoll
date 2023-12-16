@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// Borrow from the internet
+// Borrowed from the internet
 type ExtractRouteParams<T> = string extends T
   ? Record<string, string>
   : T extends `${infer _Start}:${infer Param}/${infer Rest}`
@@ -20,7 +20,6 @@ const fillDynamicPath = <S extends string>(
       parts[i] = args[key];
     }
   });
-  const x = 0;
   return parts.join("/");
 };
 
