@@ -61,6 +61,7 @@ const configureLocalDB = (db: Database) => {
     db.run(`CREATE TABLE IF NOT EXISTS vote (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             optionId INTEGER NOT NULL,
+            registration TEXT NOT NULL,
             FOREIGN KEY(optionId) REFERENCES poll(id)
             )`);
   })();

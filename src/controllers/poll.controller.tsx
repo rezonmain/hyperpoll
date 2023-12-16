@@ -33,7 +33,11 @@ export const pollController = new Elysia()
   .get(ROUTE.POLL_CREATE_SUCCESS, ({ html, query }) =>
     html(<PollCreateSuccessPage pollUrl={query.pollUrl ?? ""} />)
   )
-  .get(ROUTE.POLL_VOTED, ({ params: { pollId, voteId }, ip, set }) => {
+  .get(ROUTE.POLL_VOTED, ({ params: { pollId, optionId }, ip, set }) => {
+    if (!ip) {
+      throw new Error("BAD_REQUEST");
+    }
+    handleCreateNewVote({ pollId, optionId, ip });
     set.redirect = fillDynamicPath(ROUTE.RESULT, { pollId });
   })
   .post(
@@ -55,8 +59,10 @@ export const pollController = new Elysia()
   .post(
     ROUTE.POLL,
     ({ set, body, params: { pollId } }) => {
-      const voteId = handleCreateNewVote(pollId, body.option);
-      set.redirect = fillDynamicPath(ROUTE.POLL_VOTED, { pollId, voteId });
+      set.redirect = fillDynamicPath(ROUTE.POLL_VOTED, {
+        pollId,
+        optionId: body.option,
+      });
     },
     {
       body: t.Object({ option: t.String() }),

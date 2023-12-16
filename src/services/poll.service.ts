@@ -8,8 +8,8 @@ import {
   deletePollFromGlobalDB,
 } from "@/repositories/poll.repository";
 
-const getPollUrl = (id: string) =>
-  `http://localhost:3000${fillDynamicPath(ROUTE.POLL, { id })}`;
+const getPollUrl = (pollId: string) =>
+  `http://localhost:3000${fillDynamicPath(ROUTE.POLL, { pollId })}`;
 
 const handleCreateNewPoll = async ({
   option,
