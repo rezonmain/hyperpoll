@@ -9,6 +9,9 @@
     "strict": true,
     "skipLibCheck": true,                     
     "jsx": "react",
-    "jsxFactory": "elements.createElement"
+    "jsxFactory": "elements.createElement",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

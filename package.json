@@ -8,13 +8,21 @@
     "@elysiajs/html": "^0.7.3",
     "@paralleldrive/cuid2": "^2.2.2",
     "elysia": "latest",
+    "elysia-ip": "^0.0.4",
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
+    "@types/request-ip": "^0.0.41",
     "@types/sanitize-html": "^2.9.5",
     "bun-types": "latest",
+    "eslint": "^8.56.0",
     "typed-html": "^3.0.1"
   },
-  "module": "src/index.js"
+  "module": "src/index.js",
+  "eslintConfig": {
+    "rules": {
+      "@typescript-eslint/consistent-type-imports": "error"
+    }
+  }
 }

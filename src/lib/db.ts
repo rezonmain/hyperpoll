@@ -1,10 +1,7 @@
 import Database from "bun:sqlite";
 import fs from "node:fs/promises";
+import { MIGRATION_PATH, POLL_DATA_DIR, GLOBAL_DB_PATH } from "@/constants/db";
 import { Logger } from "./Logger";
-import { deleteMemoryPoll } from "./helpers";
-
-const MIGRATION_PATH = "migrations";
-const GLOBAL_DB_PATH = "data/db.sqlite";
 
 async function listMigrations(): Promise<string[]> {
   const pathname = MIGRATION_PATH;
@@ -41,7 +38,7 @@ async function getCurrentMigrationVersion() {
   return version.user_version;
 }
 
-async function writeMemoryDatabaseFile(pathname: string) {
+async function createLocalDatabaseFile(pathname: string) {
   const file = Bun.file(pathname);
   if (await file.exists()) {
     return;
@@ -49,7 +46,7 @@ async function writeMemoryDatabaseFile(pathname: string) {
   await Bun.write(pathname, "");
 }
 
-const configurePollMemoryDB = (db: Database, dbPath: string) => {
+const configureLocalDB = (db: Database) => {
   db.transaction(() => {
     db.run(`CREATE TABLE IF NOT EXISTS poll (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -70,7 +67,7 @@ const configurePollMemoryDB = (db: Database, dbPath: string) => {
 };
 
 async function runMigrations() {
-  await writeMemoryDatabaseFile(GLOBAL_DB_PATH);
+  await createLocalDatabaseFile(GLOBAL_DB_PATH);
   const db = getDbInstance(GLOBAL_DB_PATH);
   const migrations = await readAllMigrations();
   const currentVersion = await getCurrentMigrationVersion();
@@ -107,11 +104,22 @@ async function runMigrations() {
 }
 
 const getDbInstance = (pathname: string) => new Database(pathname);
+const getLocalDBInstance = (pollId: string) =>
+  getDbInstance(`${POLL_DATA_DIR}/poll_${pollId}.sqlite`);
+
+const deleteLocalDB = async (id: string) => {
+  const pathname = `${POLL_DATA_DIR}/poll_${id}.sqlite`;
+  const fileDB = Bun.file(pathname);
+  if (await fileDB.exists()) {
+    await fs.unlink(pathname);
+  }
+};
 
 export {
   runMigrations,
-  writeMemoryDatabaseFile,
-  configurePollMemoryDB,
-  GLOBAL_DB_PATH,
+  createLocalDatabaseFile,
+  configureLocalDB,
   getDbInstance,
+  getLocalDBInstance,
+  deleteLocalDB,
 };
