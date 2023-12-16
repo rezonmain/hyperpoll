@@ -1,6 +1,7 @@
 import { createNewVote } from "@/repositories/vote.repository";
 
 const handleCreateNewVote = (id: string, option: string) => {
-  createNewVote(id, option);
+  const { id: voteId } = createNewVote(id, option);
+  return voteId;
 };
 export { handleCreateNewVote };

@@ -33,7 +33,7 @@ const PollPage = ({ options, pollTitle, pollId }: PollPageProps) => (
         </fieldset>
       </form>
       <p>
-        <a href={fillDynamicPath(ROUTE.RESULT, { id: pollId })}>See results</a>
+        <a href={fillDynamicPath(ROUTE.RESULT, { pollId })}>See results</a>
       </p>
       <p>
         <a href={ROUTE.POLL_HOME}>See all polls</a>

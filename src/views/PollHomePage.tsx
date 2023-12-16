@@ -18,11 +18,11 @@ const PollHomePage = ({ polls }: PollHomePageProps) => {
         <ul>
           {polls.map((poll) => (
             <li>
-              <a href={fillDynamicPath(ROUTE.POLL, { id: poll.pollId })}>
+              <a href={fillDynamicPath(ROUTE.POLL, { pollId: poll.pollId })}>
                 {poll.title}
               </a>
               <button
-                hx-delete={fillDynamicPath(ROUTE.POLL, { id: poll.pollId })}
+                hx-delete={fillDynamicPath(ROUTE.POLL, { pollId: poll.pollId })}
                 hx-swap="outerHTML"
                 hx-target="closest li"
               >

@@ -12,17 +12,19 @@ import { getAllPolls, getPollData } from "@/repositories/poll.repository";
 import { handleCreateNewPoll, handleDeletePoll } from "@/services/poll.service";
 import { handleCreateNewVote } from "@/services/vote.service";
 import { fillDynamicPath } from "@/lib/path";
+import { ip } from "elysia-ip";
 
 export const pollController = new Elysia()
   .use(html())
+  .use(ip())
   .get(ROUTE.POLL_HOME, ({ html }) => {
     const polls = getAllPolls();
     return html(<PollHomePage polls={polls} />);
   })
-  .get(ROUTE.POLL, ({ html, params: { id } }) => {
-    const { options, pollTitle } = getPollData(id);
+  .get(ROUTE.POLL, ({ html, params: { pollId } }) => {
+    const { options, pollTitle } = getPollData(pollId);
     return html(
-      <PollPage options={options} pollId={id} pollTitle={pollTitle} />
+      <PollPage options={options} pollId={pollId} pollTitle={pollTitle} />
     );
   })
   .get(ROUTE.POLL_CREATE, ({ html }) => {
@@ -31,6 +33,9 @@ export const pollController = new Elysia()
   .get(ROUTE.POLL_CREATE_SUCCESS, ({ html, query }) =>
     html(<PollCreateSuccessPage pollUrl={query.pollUrl ?? ""} />)
   )
+  .get(ROUTE.POLL_VOTED, ({ params: { pollId, voteId }, ip, set }) => {
+    set.redirect = fillDynamicPath(ROUTE.RESULT, { pollId });
+  })
   .post(
     ROUTE.POLL_CREATE,
     async ({ set, body }) => {
@@ -49,14 +54,15 @@ export const pollController = new Elysia()
   )
   .post(
     ROUTE.POLL,
-    ({ set, body, params: { id } }) => {
-      handleCreateNewVote(id, body.option);
-      set.redirect = fillDynamicPath(ROUTE.RESULT, { id });
+    ({ set, body, params: { pollId } }) => {
+      const voteId = handleCreateNewVote(pollId, body.option);
+      set.redirect = fillDynamicPath(ROUTE.POLL_VOTED, { pollId, voteId });
     },
     {
       body: t.Object({ option: t.String() }),
     }
   )
-  .delete(ROUTE.POLL, async ({ params: { id } }) => {
-    await handleDeletePoll(id);
-  });
+  .delete(ROUTE.POLL, async ({ params: { pollId } }) => {
+    await handleDeletePoll(pollId);
+  })
+  .listen(""); // this makes app.server available for the ip() plugin

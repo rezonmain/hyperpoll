@@ -1,7 +1,8 @@
 export const ROUTE = {
   POLL_HOME: "/poll",
-  POLL: "/poll/:id",
+  POLL: "/poll/:pollId",
   POLL_CREATE: "/poll/create",
   POLL_CREATE_SUCCESS: "/poll/create/success",
-  RESULT: "/result/:id",
+  POLL_VOTED: "/poll/:pollId/voted/:voteId",
+  RESULT: "/result/:pollId",
 } as const;

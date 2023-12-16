@@ -7,7 +7,7 @@ import { PollResultsPage } from "@/views";
 
 export const resultController = new Elysia()
   .use(html())
-  .get(ROUTE.RESULT, ({ html, params: { id } }) => {
-    const { pollTitle, results } = getPollResult(id);
+  .get(ROUTE.RESULT, ({ html, params: { pollId } }) => {
+    const { pollTitle, results } = getPollResult(pollId);
     return html(<PollResultsPage pollTitle={pollTitle} results={results} />);
   });
