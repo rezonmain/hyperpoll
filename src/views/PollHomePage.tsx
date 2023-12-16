@@ -2,6 +2,7 @@ import * as elements from "typed-html";
 import { GlobalLayout } from "@/layouts/GlobalLayout";
 import { Poll } from "@/models/Poll";
 import { ROUTE } from "@/constants/routes";
+import { fillDynamicPath } from "@/lib/path";
 
 type PollHomePageProps = {
   polls: Poll[];
@@ -17,9 +18,11 @@ const PollHomePage = ({ polls }: PollHomePageProps) => {
         <ul>
           {polls.map((poll) => (
             <li>
-              <a href={`${ROUTE.POLL_HOME}/${poll.pollId}`}>{poll.title}</a>
+              <a href={fillDynamicPath(ROUTE.POLL, { id: poll.pollId })}>
+                {poll.title}
+              </a>
               <button
-                hx-delete={`${ROUTE.POLL_HOME}/${poll.pollId}`}
+                hx-delete={fillDynamicPath(ROUTE.POLL, { id: poll.pollId })}
                 hx-swap="outerHTML"
                 hx-target="closest li"
               >
