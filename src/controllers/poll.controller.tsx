@@ -32,18 +32,22 @@ export const pollController = new Elysia()
     }
     const { options, pollTitle } = getPollData(pollId);
     return html(
-      <PollPage options={options} pollId={pollId} pollTitle={pollTitle} />
+      <PollPage options={options} pollId={pollId} pollTitle={pollTitle} />,
     );
   })
   .get(ROUTE.POLL_CREATE, ({ html }) => {
     return html(<PollCreatePage />);
   })
   .get(ROUTE.POLL_CREATE_SUCCESS, ({ html, query }) =>
-    html(<PollCreateSuccessPage pollUrl={query.pollUrl ?? ""} />)
+    html(<PollCreateSuccessPage pollUrl={query.pollUrl ?? ""} />),
   )
   .get(ROUTE.POLL_VOTED, ({ params: { pollId, optionId }, ip, set }) => {
     if (!ip) {
       throw new Error("BAD_REQUEST");
+    }
+    if (hasVoted({ pollId, ip })) {
+      set.redirect = fillDynamicPath(ROUTE.RESULT, { pollId });
+      return;
     }
     handleCreateNewVote({ pollId, optionId, ip });
     set.redirect = fillDynamicPath(ROUTE.RESULT, { pollId });
@@ -62,7 +66,7 @@ export const pollController = new Elysia()
         option: t.Union([t.Array(t.String()), t.String()]),
         pollTitle: t.String(),
       }),
-    }
+    },
   )
   .post(
     ROUTE.POLL,
@@ -74,7 +78,7 @@ export const pollController = new Elysia()
     },
     {
       body: t.Object({ option: t.String() }),
-    }
+    },
   )
   .delete(ROUTE.POLL, async ({ params: { pollId } }) => {
     await handleDeletePoll(pollId);
