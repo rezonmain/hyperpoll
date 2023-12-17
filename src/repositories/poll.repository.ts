@@ -32,6 +32,7 @@ const getPollData = (id: string) => {
 };
 
 const getPollResult = (id: string) => {
+  // This is faster than doing a single query with JOIN and GROUP BY
   const db = getLocalDBInstance(id);
   const options = db.prepare("SELECT id, option FROM poll").all() as Option[];
   const votes = db.prepare("SELECT optionId FROM vote").all() as Vote[];
@@ -50,7 +51,7 @@ const createNewPoll = async (
   data: {
     option: string[];
     pollTitle: string;
-  }
+  },
 ) => {
   await createLocalDatabaseFile(`${POLL_DATA_DIR}/poll_${id}.sqlite`);
 
@@ -68,7 +69,7 @@ const createNewPoll = async (
 
   const globalDB = getDbInstance(GLOBAL_DB_PATH);
   stmt = globalDB.prepare(
-    "INSERT INTO poll (title, pollId) VALUES ($title, $pollId)"
+    "INSERT INTO poll (title, pollId) VALUES ($title, $pollId)",
   );
   stmt.run({ $title: data.pollTitle, $pollId: id });
 };
