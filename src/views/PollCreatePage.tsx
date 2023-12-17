@@ -4,6 +4,7 @@ import { w98ButtonMd, w98Container } from "@/constants/styles";
 import { WindowBar } from "@/components/WindowBar";
 import { Body } from "@/layouts/Body";
 import { Footer } from "@/components/Footer";
+import { Input } from "@/components/TextInput";
 
 const Options = () => {
   const MAX_OPTIONS = 10;
@@ -18,7 +19,7 @@ const Options = () => {
 
   const optionInput = `
   <label id="option-field">
-    <input type="text" name="option" />
+    ${(<Input name="option" />)}
     <button _="${onRemoveOption}" class="${w98ButtonMd} font-serif">
       Remove
     </button>
@@ -65,7 +66,7 @@ const PollCreatePage = () => (
           <form id="new-poll" method="POST" class="flex flex-col gap-4">
             <label>
               Title:
-              <input type="text" name="pollTitle" />
+              <Input name="pollTitle" />
             </label>
             <fieldset class="flex flex-col gap-4">
               <legend class="tracking-wider">Options</legend>
