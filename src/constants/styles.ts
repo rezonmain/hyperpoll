@@ -1,4 +1,5 @@
 const w98Container = `bg-gray-300 outline outline-2 outline-black border-6 border-solid border-t-gray-100 border-l-gray-100 border-b-gray-500 border-r-gray-500`;
-const w98Button = `bg-gray-300 outline-2 outline-black outline border-5 border-solid border-t-gray-100 border-l-gray-100 border-b-gray-500 border-r-gray-500 active:border-t-gray-500 active:border-l-gray-500 active:border-b-gray-100 active:border-r-gray-100 active:translate-x-1 active:translate-y-1`;
+const w98ButtonLg = `bg-gray-300 outline-2 outline-black outline border-5 border-solid border-t-gray-100 border-l-gray-100 border-b-gray-500 border-r-gray-500 active:border-t-gray-500 active:border-l-gray-500 active:border-b-gray-100 active:border-r-gray-100 active:translate-x-1 active:translate-y-1`;
+const w98ButtonMd = `bg-gray-300 outline-1 outline-black outline border-3 border-solid border-t-gray-100 border-l-gray-100 border-b-gray-500 border-r-gray-500 active:border-t-gray-500 active:border-l-gray-500 active:border-b-gray-100 active:border-r-gray-100 active:translate-x-[2px] active:translate-[2px]`;
 const w98ButtonSm = `bg-gray-300 outline-1 outline-black hover:outline border-2 border-solid border-t-gray-100 border-l-gray-100 border-b-gray-500 border-r-gray-500 active:border-t-gray-500 active:border-l-gray-500 active:border-b-gray-100 active:border-r-gray-100 active:translate-x-[1px] active:translate-y-[1px]`;
-export { w98Container, w98Button, w98ButtonSm };
+export { w98Container, w98ButtonLg, w98ButtonSm, w98ButtonMd };

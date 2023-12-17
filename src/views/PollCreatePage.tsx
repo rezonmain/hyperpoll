@@ -1,6 +1,9 @@
 import * as elements from "typed-html";
 import { ROUTE } from "@/constants/routes";
-import { GlobalLayout } from "@/layouts/GlobalLayout";
+import { w98ButtonMd, w98Container } from "@/constants/styles";
+import { WindowBar } from "@/components/WindowBar";
+import { Body } from "@/layouts/Body";
+import { Footer } from "@/components/Footer";
 
 const Options = () => {
   const MAX_OPTIONS = 10;
@@ -16,7 +19,7 @@ const Options = () => {
   const optionInput = `
   <label id="option-field">
     <input type="text" name="option" />
-    <button _="${onRemoveOption}">
+    <button _="${onRemoveOption}" class="${w98ButtonMd} font-serif">
       Remove
     </button>
   </label>`;
@@ -35,7 +38,11 @@ const Options = () => {
     <div class="flex flex-col gap-4">
       {optionInput}
       <div _="set :empty to ''">
-        <button id="add-option" _={onAddOption}>
+        <button
+          id="add-option"
+          _={onAddOption}
+          class={`${w98ButtonMd} font-serif`}
+        >
           Add option
         </button>
       </div>
@@ -44,24 +51,36 @@ const Options = () => {
 };
 
 const PollCreatePage = () => (
-  <GlobalLayout>
-    <body>
-      <form id="new-poll" method="POST">
-        <fieldset class="flex flex-col gap-4">
-          <legend>Create a new poll</legend>
-          <label>
-            Poll title:
-            <input type="text" name="pollTitle" />
-          </label>
-          <Options />
-          <div>
-            <button>Start poll</button>
-          </div>
-        </fieldset>
-      </form>
-      <a href={ROUTE.POLL_HOME}>See all polls</a>
-    </body>
-  </GlobalLayout>
+  <Body>
+    <div class="flex h-[100vh] flex-col items-center justify-evenly">
+      <section class={`${w98Container} flex flex-col`}>
+        <WindowBar title="Create New Poll" />
+        <div class="flex flex-row gap-4 p-4">
+          <img
+            width="178px"
+            height="324px"
+            class="object-cover outline outline-2"
+            src="/public/img/poll-create.webp"
+          />
+          <form id="new-poll" method="POST" class="flex flex-col gap-4">
+            <label>
+              Title:
+              <input type="text" name="pollTitle" />
+            </label>
+            <fieldset class="flex flex-col gap-4">
+              <legend class="tracking-wider">Options</legend>
+              <Options />
+              <div>
+                <button class={`${w98ButtonMd} font-serif`}>Start poll</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <a href={ROUTE.POLL_HOME}>See all polls</a>
+      </section>
+      <Footer />
+    </div>
+  </Body>
 );
 
 export { PollCreatePage };
