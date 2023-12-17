@@ -4,6 +4,8 @@ import { GlobalLayout } from "./GlobalLayout";
 
 export const Body = ({ children }: elements.Children) => (
   <GlobalLayout>
-    <body un-cloak>{children}</body>
+    <body hx-boost="true" un-cloak>
+      {children}
+    </body>
   </GlobalLayout>
 );
